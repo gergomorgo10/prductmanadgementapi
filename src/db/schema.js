@@ -1,9 +1,11 @@
+const { boolean } = require("drizzle-orm/mysql-core");
 const { mysqlTable, int, varchar } = require("drizzle-orm/mysql-core");
 
-const users = mysqlTable("users", {
+const products = mysqlTable("products", {
   id: int("id").primaryKey().autoincrement(),
-  name: varchar("name", { length: 255 }),
-  email: varchar("email", { length: 255 }).notNull().unique(),
+  name: varchar("name", { length: 255 }).notNull(),
+  price: int("price").notNull(),
+  inStock: boolean("inStock").default(false),
 });
 
-module.exports = { users };
+module.exports = { products };
