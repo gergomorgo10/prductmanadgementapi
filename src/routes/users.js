@@ -3,6 +3,7 @@ const { eq } = require("drizzle-orm");
 
 const db = require("../db/db");
 const { users } = require("../db/schema");
+const { route } = require("./products");
 
 const router = express.Router();
 
@@ -11,7 +12,8 @@ router.get("/", async (req, res) => {
   try {
     const allUsers = await db.select().from(users);
     return res.status(200).json(allUsers);
-  } catch (error) {
+  } 
+  catch (error) {
     return res.status(500).json({ error: error.message });
   }
 });
@@ -29,7 +31,8 @@ router.get("/:id", async (req, res) => {
     }
 
     return res.status(200).json(user);
-  } catch (error) {
+  } 
+  catch (error) {
     return res.status(500).json({ error: error.message });
   }
 });
@@ -90,9 +93,12 @@ router.delete("/:id", async (req, res) => {
     await db.delete(users).where(eq(users.id, req.params.id));
 
     return res.status(200).json({ message: "User deleted successfully" });
-  } catch (error) {
+  } 
+  catch (error) {
     return res.status(500).json({ error: error.message });
   }
 });
+
+
 
 module.exports = router;
