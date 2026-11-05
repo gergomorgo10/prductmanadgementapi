@@ -37,4 +37,39 @@ router.get("/:id", async (req, res) => {
     }
 })
 
+router.post("/", async (req, res) => {
+    try{
+        const {name, price, inStock} = req.body;
+
+        if(!name){
+            return res.status(400).json({
+                message: "hi, szaranev"
+            })
+        }
+                if(!price){
+            return res.status(400).json({
+                message: "hi, j65uzg vbcmrth"
+            })
+        }
+                if(!inStock){
+            return res.status(400).json({
+                message: "hi, KENE STOCK"
+            })
+        }
+        await db.insert(products).values({
+            name,
+            price,
+            inStock,
+        });
+        return res.status(201).json({
+            message: "koszipuszi minden jo"
+        })
+    }
+    catch(err){
+        return res.status(500).json({
+            error: err.message || "valami gatya tortent",
+        })
+    }
+})
+
 module.exports = router;
